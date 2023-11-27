@@ -3,11 +3,6 @@ from turtle import Turtle
 from random import randint
 
 
-list = [1, 2, 3, 4, 5, 6]
-print(list[1:])
-
-
-
 class Food(Turtle):
     def __init__(self):
         super().__init__()

@@ -7,6 +7,8 @@ LEFT = 180
 RIGHT = 0
 
 POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
+
+
 class Snake:
     def __init__(self):
         self.snakes = []
@@ -27,7 +29,6 @@ class Snake:
     # add a new segment to a snake
     def extend_snake(self):
         self.add_tail(self.snakes[-1].position())
-
 
     def move(self):
         for snake in range((len(self.snakes) - 1), 0, -1):
@@ -51,5 +52,12 @@ class Snake:
     def right(self):
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
+
+    def reset(self):
+        for snake in self.snakes:
+            snake.goto(1000, 1000)
+        self.snakes.clear()
+        self.create_snake()
+        self.head = self.snakes[0]
 
 
