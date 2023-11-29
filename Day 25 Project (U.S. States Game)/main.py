@@ -23,10 +23,7 @@ while len(correct_guess) < 50:
     answer_state = screen.textinput(title=f"{states_correct}/{total_states} States Correct", prompt="What's another state?").title()
 
     if answer_state == "Exit":
-        forgot_states = []
-        for state in states_list:
-            if state not in correct_guess:
-                forgot_states.append(state)
+        forgot_states = [state for state in states_list if state not in correct_guess]
         new_df = pandas.DataFrame(forgot_states)
         new_df.to_csv("states_to_learn.csv")
         break
