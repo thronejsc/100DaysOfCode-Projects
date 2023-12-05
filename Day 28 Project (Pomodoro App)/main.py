@@ -18,6 +18,8 @@ def reset_timer():
     window.after_cancel(timer)
     lbl_timer.config(text="TIMER")
     canvas.itemconfig(canvas_timer, text="00:00")
+    canvas.itemconfig(tomato, state="normal")
+    canvas.itemconfig(dani, state="hidden")
     lbl_check.config(text="")
     global reps
     reps = 0
@@ -28,6 +30,8 @@ def start_timer():
     global reps
     reps += 1
 
+    canvas.itemconfig(tomato, state="hidden")
+    canvas.itemconfig(dani, state="normal")
     work_sec = WORK_MIN * 60
     short_break_sec = SHORT_BREAK_MIN * 60
     long_break_sec = LONG_BREAK_MIN * 60
@@ -40,6 +44,7 @@ def start_timer():
         lbl_timer.config(text="SHORT BREAK", fg=ORANGE)
     else:
         countdown_timer(work_sec)
+
         lbl_timer.config(text="WORK", fg=GREEN)
 
 
@@ -68,7 +73,6 @@ def countdown_timer(count):
         lbl_check.config(text=checkmarks)
 
 
-
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
@@ -78,10 +82,16 @@ txt_checkmark = " ✔ "
 lbl_timer = Label(text="TIMER", font=(FONT_NAME, 36, "bold"), fg=GREEN, bg=YELLOW, highlightthickness=0)
 lbl_timer.grid(column=1, row=0)
 
-canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
+canvas = Canvas(width=400, height=400, bg=YELLOW, highlightthickness=0)
+dani_png = PhotoImage(file="Screenshot_20.png")
+dani = canvas.create_image(200, 200, image=dani_png)
+canvas.itemconfig(dani, state="hidden")
+
 tomato_png = PhotoImage(file="tomato.png")
-canvas.create_image(100, 112, image=tomato_png)
-canvas_timer = canvas.create_text(103, 135, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
+tomato = canvas.create_image(200, 180, image=tomato_png)
+canvas_timer = canvas.create_text(200, 200, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
+
+
 canvas.grid(column=1, row=1)
 
 btn_start = Button(text="START", font=(FONT_NAME, 16, "bold"), fg=YELLOW, bg=GREEN, command=start_timer)

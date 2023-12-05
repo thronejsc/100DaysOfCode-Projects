@@ -28,7 +28,14 @@ import pandas as p
 letter_code = p.read_csv("nato_phonetic_alphabet.csv")
 letter_dict = {row.letter: row.code for (index, row) in letter_code.iterrows()}
 
-word = input("Enter a name: ").upper()
-code_word = [letter_dict[key] for key in word]
+def generate_phoentic():
+    word = input("Enter a name: ").upper()
+    try:
+        code_word = [letter_dict[key] for key in word]
+    except KeyError:
+        print(f"Sorry, only letters are accepted")
+        generate_phoentic()
+    else:
+        print(code_word)
 
-print(code_word)
+generate_phoentic()
