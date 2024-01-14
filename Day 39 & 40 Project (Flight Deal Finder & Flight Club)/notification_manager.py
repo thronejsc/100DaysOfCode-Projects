@@ -1,10 +1,8 @@
 import requests
 from twilio.rest import Client
 
-account_sid = "ACc931465dae26952f7c1ec6001c7718c0"
-auth_token = "fd479c2fafb43bfc019a0eaa07af0f73"
-
-
+account_sid = "YOUR SID"
+auth_token = "YOUR TOKEN"
 
 class NotificationManager:
     def __init__(self):
@@ -15,8 +13,8 @@ class NotificationManager:
         message = self.client.messages \
             .create(
                 body=f"Low Price Alert! Only ${price} to fly from {origin_city}-{origin_airport} to {destination_city}-{destination_airport}, from {out_date}-{return_date}",
-                from_='+12019925595',
-                to='+639761214776',
+                from_='+YOUR TWILIO NUMBER',
+                to='+YOUR NUMBER',
             )
         print(message.body)
         print(message.status)
