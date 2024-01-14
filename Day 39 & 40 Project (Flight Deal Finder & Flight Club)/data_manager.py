@@ -24,7 +24,7 @@ class DataManager:
         self.data = data["prices"]
         return self.data
 
-    def put_test_iata(self):
+    def update_city_code(self):
         for city in self.data:
             new_data = {
                 "price": {
@@ -46,6 +46,17 @@ class DataManager:
 
         response = requests.post(url=self.url, json=new_data, headers=self.headers)
         print(response.text)
+
+    def update_city_price(self):
+        for city in self.data:
+            new_data = {
+                "price": {
+                    "lowestPrice": round(float(city["lowestPrice"]) * 1.27,2),
+                }
+            }
+            response = requests.put(url=f"{self.url}/{city['id']}", json=new_data, headers=self.headers)
+            print(response.text)
+
 
 
 # sheety = DataManager(AUTHORIZATION, USERNAME, PASSWORD)
