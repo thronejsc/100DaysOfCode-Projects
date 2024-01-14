@@ -42,8 +42,6 @@ for destination in sheet_data:
             notification = NotificationManager()
             notification.send_message(flight.price, flight.origin_city, flight.origin_airport, flight.destination_city,
                                       flight.destination_airport, flight.out_date, flight.return_date)
-
-
     except AttributeError:
         print(f"No price found for {destination['iataCode']}.")
 

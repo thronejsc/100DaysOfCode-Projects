@@ -2,9 +2,9 @@ import requests
 import json
 
 
-AUTHORIZATION = "Basic dHJhY3ltY2dyYXZ5OnRyYWN5MTIz"
-USERNAME = "tracymcgravy"
-PASSWORD = "tracy123"
+AUTHORIZATION = "[SHEETY AUTHORIZATION]"
+USERNAME = "[SHEETY USERNAME]"
+PASSWORD = "[SHEETY PASSWORD]"
 
 
 class DataManager:
