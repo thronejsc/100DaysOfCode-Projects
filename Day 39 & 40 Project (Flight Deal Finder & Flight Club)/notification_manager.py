@@ -1,8 +1,12 @@
-import requests
 from twilio.rest import Client
+import smtplib
 
 account_sid = "YOUR SID"
 auth_token = "YOUR TOKEN"
+TWILIO_VIRTUAL_NUMBER = 'YOUR TWILIO NUMBER'
+TWILIO_VERIFIED_NUMBER = 'YOUR TWILIO NUMBER'
+FROM_EMAIL = "SMTP EMAIL"
+PASSWORD = "SMTP PASSWORD"
 
 class NotificationManager:
     def __init__(self):
@@ -19,5 +23,18 @@ class NotificationManager:
         print(message.body)
         print(message.status)
 
+    def send_emails(self, message, emails):
+        with smtplib.SMTP("smtp.gmail.com") as connection:
+            connection.starttls()
+            connection.login(
+                user=FROM_EMAIL,
+                password=PASSWORD
+            )
+            for email in emails:
+                connection.sendmail(
+                    from_addr=FROM_EMAIL,
+                    to_addrs=email,
+                    msg=message
+                )
 
 
