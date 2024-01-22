@@ -1,7 +1,7 @@
 
 
-FROM_EMAIL = "tmacgravy21@gmail.com"
-PASSWORD = "qcvu ulxx qgds stqc"
+FROM_EMAIL = "SMTP EMAIL"
+PASSWORD = "SMTP PASSWORD"
 
 header = {
     "Accept-Language": "en-GB,en;q=0.5",
