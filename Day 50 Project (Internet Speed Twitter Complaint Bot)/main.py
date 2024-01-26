@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 TWITTER_USERNAME = "TWITTER_USERNAME"
 TWITTER_PASSWORD = "TWITTER_PASSWORD"
 
-CHROME_DRIVER_PATH = "C:/Users/ejcan/Desktop/chromedriver-win64/chromedriver.exe"
+CHROME_DRIVER_PATH = "CHROME_DRIVER_PATH"
 service = Service(CHROME_DRIVER_PATH)
 option = webdriver.ChromeOptions()
 option.add_experimental_option("detach", True)
