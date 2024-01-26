@@ -5,8 +5,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 
-TWITTER_USERNAME = "codingwithrizz"
-TWITTER_PASSWORD = "ejdani041019"
+TWITTER_USERNAME = "TWITTER_USERNAME"
+TWITTER_PASSWORD = "TWITTER_PASSWORD"
 
 CHROME_DRIVER_PATH = "C:/Users/ejcan/Desktop/chromedriver-win64/chromedriver.exe"
 service = Service(CHROME_DRIVER_PATH)
