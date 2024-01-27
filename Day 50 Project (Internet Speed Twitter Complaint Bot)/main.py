@@ -1,9 +1,7 @@
 import time
-
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-
 
 TWITTER_USERNAME = "TWITTER_USERNAME"
 TWITTER_PASSWORD = "TWITTER_PASSWORD"
@@ -16,7 +14,6 @@ driver = webdriver.Chrome(service=service, options=option)
 
 SPEEDTEST_URL = "https://www.speedtest.net/"
 TWITTER_URL = "https://twitter.com/home"
-
 
 class InternetSpeedTwitterBot:
     def __init__(self):
