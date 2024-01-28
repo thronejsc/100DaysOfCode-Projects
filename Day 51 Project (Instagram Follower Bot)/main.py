@@ -4,10 +4,10 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 
-USERNAME = "IG USERNAME"
-PASSWORD = "IG PASSWORD"
+USERNAME = "tmacgravy21"
+PASSWORD = "natehiggersgoogleceo"
 
-CHROME_DRIVER_PATH = "CHROME DRIVER PATH"
+CHROME_DRIVER_PATH = "C:/Users/ejcan/Desktop/chromedriver-win64/chromedriver.exe"
 service = Service(CHROME_DRIVER_PATH)
 option = webdriver.ChromeOptions()
 option.add_experimental_option("detach", True)
@@ -30,16 +30,13 @@ class InstaFollower:
         time.sleep(1)
         login_button = self.driver.find_element(by=By.XPATH, value="//*[@id='loginForm']/div/div[3]/button")
         login_button.click()
-        time.sleep(5)
-        not_now_save_button = self.driver.find_element(by=By.XPATH, value="//*[@id='mount_0_0_8B']/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div/div/div/div")
+        time.sleep(7)
+        not_now_save_button = self.driver.find_element(by=By.XPATH, value="//div[contains(text(), 'Not now')]")
         not_now_save_button.click()
         time.sleep(2)
-        not_now_notif_button = self.driver.find_element(by=By.XPATH, value="/html/body/div[4]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]")
+        not_now_notif_button = self.driver.find_element(by=By.XPATH, value="//button[contains(text(), 'Not Now')]")
         not_now_notif_button.click()
-        time.sleep(1)
-
-
-
+        time.sleep(2)
 
     def find_followers(self):
         target_url = "https://www.instagram.com/spiderman/"
@@ -59,3 +56,4 @@ class InstaFollower:
 
 ig = InstaFollower()
 ig.login()
+ig.find_followers()
