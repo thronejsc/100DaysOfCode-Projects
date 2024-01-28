@@ -13,6 +13,7 @@ option = webdriver.ChromeOptions()
 option.add_experimental_option("detach", True)
 driver = webdriver.Chrome(service=service, options=option)
 
+
 class InstaFollower:
     def __init__(self):
         self.driver = driver
@@ -41,7 +42,15 @@ class InstaFollower:
 
 
     def find_followers(self):
-        pass
+        target_url = "https://www.instagram.com/spiderman/"
+        self.driver.get(url=target_url)
+        time.sleep(5)
+        followers = self.driver.find_element(by=By.XPATH, value="//a[contains(text(), ' followers')]")
+        followers.click()
+        time.sleep(5)
+        follow = self.driver.find_elements(by=By.XPATH, value="//button[contains(text(), 'Follow')]")
+        for i in follow:
+            i.click()
 
     def follow(self):
         pass
