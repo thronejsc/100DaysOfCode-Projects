@@ -2,6 +2,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import ElementClickInterceptedException
 
 
 USERNAME = "tmacgravy21"
@@ -45,15 +46,22 @@ class InstaFollower:
         followers = self.driver.find_element(by=By.XPATH, value="//a[contains(text(), ' followers')]")
         followers.click()
         time.sleep(5)
-        follow = self.driver.find_elements(by=By.XPATH, value="//button[contains(text(), 'Follow')]")
-        for i in follow:
-            i.click()
+        pop_up_followers = self.driver.find_element(by=By.XPATH,
+                                                    value="/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]")
+        driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", pop_up_followers)
 
     def follow(self):
-        pass
-
+        follow = self.driver.find_elements(by=By.CSS_SELECTOR, value="._aano button")
+        try:
+            for i in follow:
+                i.click()
+                time.sleep(1)
+        except ElementClickInterceptedException:
+            cancel_button = self.driver.find_element(by=By.XPATH, value="//button[contains(text(), 'Cancel')]")
+            cancel_button.click()
 
 
 ig = InstaFollower()
 ig.login()
 ig.find_followers()
+ig.follow()
