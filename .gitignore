@@ -6,3 +6,9 @@ Day 39 & 40 Project (Flight Deal Finder & Flight Club) main/main.py
 Day 39 & 40 Project (Flight Deal Finder & Flight Club) main/notification_manager.py
 *.pyc
 test.py
+*.venv
+exams/Cañarejo_domain_counters.py
+exams/Cañarejo_zen_of_python.py
+exams/input.csv
+exams/input.in
+exams/output.csv
