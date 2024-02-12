@@ -37,24 +37,11 @@ class Movie(db.Model):
     title: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     year: Mapped[int] = mapped_column(Integer, nullable=False)
     description: Mapped[str] = mapped_column(String(250), nullable=False)
-    rating: Mapped[float] = mapped_column(Float, nullable=False)
-    ranking: Mapped[int] = mapped_column(Integer, nullable=False)
-    review: Mapped[str] = mapped_column(String(100), nullable=False)
+    rating: Mapped[float] = mapped_column(Float, nullable=True)
+    ranking: Mapped[int] = mapped_column(Integer, nullable=True)
+    review: Mapped[str] = mapped_column(String(100), nullable=True)
     img_url: Mapped[str] = mapped_column(String, nullable=False)
     
-# new_movie = Movie(
-#     title="MEgamind 2",
-#     year=2007,
-#     description="Publicist Stuart Shepard finds himself trapped in a phone booth, pinned down by an extortionist's sniper rifle. Unable to leave or receive outside help, Stuart's negotiation with the caller leads to a jaw-dropping climax.",
-#     rating=7.3,
-#     ranking=10,
-#     review="My favourite character was the caller.",
-#     img_url="https://image.tmdb.org/t/p/w500/tjrX2oWRCM3Tvarz38zlZM7Uc10.jpg"
-# )
-
-# with app.app_context():
-#     db.session.add(new_movie)
-#     db.session.commit()
 # CREATE TABLE
 
 with app.app_context():
@@ -74,8 +61,17 @@ class AddMovie(FlaskForm):
 
 @app.route("/")
 def home():
-    result = db.session.execute(db.select(Movie).order_by((Movie.ranking).desc()))
-    all_movies = result.scalars()
+    result = db.session.execute(db.select(Movie).order_by((Movie.rating)))
+    
+    # users = db.session.execute(db.select(User).order_by(User.username)).scalars()
+    all_movies = result.scalars().all()
+    if len(all_movies) < 2:
+        all_movies[0].ranking = 1
+    else:
+        for i in range(len(all_movies)):
+            all_movies[i].ranking = len(all_movies) - i
+    db.session.commit()
+        
     return render_template("index.html", all_movies=all_movies)
 
 
@@ -103,7 +99,18 @@ def movie_details():
         params = {
             "language": "en-US"
         }
-        response = 
+        movie_response = requests.get(url=movie_endpoint, params=params, headers=headers).json()
+        new_movie = Movie(
+            title = movie_response["title"],
+            year = movie_response["release_date"].split("-")[0],
+            img_url = f"https://image.tmdb.org/t/p/original/{ movie_response['poster_path']}",
+            description = movie_response["overview"]
+        )
+        db.session.add(new_movie)
+        db.session.commit()
+        
+        return redirect(url_for('edit', id=new_movie.id))
+        
         
 
 @app.route('/edit-<int:id>', methods= ["GET", "POST"])
