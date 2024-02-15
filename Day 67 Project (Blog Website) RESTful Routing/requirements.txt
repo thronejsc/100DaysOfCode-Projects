@@ -1,0 +1,8 @@
+Bootstrap_Flask
+flask_ckeditor
+WTForms
+Flask_WTF
+Werkzeug
+Flask
+flask_sqlalchemy
+SQLAlchemy
