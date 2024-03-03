@@ -1,4 +1,4 @@
-from random import randint, choice
+from random import randint
 
 class Board:
     def __init__(self):
@@ -26,7 +26,8 @@ class Board:
             self.game_is_finished = True
         board.board[row_tile - 1][column_tile - 1] = "X"
         self.display_board()
-        self.check_if_win()
+        if self.check_if_win():
+            self.game_is_finished = True
         
     
     def computer_turn(self):
@@ -35,7 +36,7 @@ class Board:
         random_column = randint(0,2)
         self.computer_choice = (random_row,random_column)
         if self.check_if_occupied():
-            if "-" not in self.board:
+            if all(row[0] == '-' for row in self.board ):
                 self.game_is_finished = True
                 print("No more tiles to fill")
             else:
@@ -43,7 +44,8 @@ class Board:
         else:
             board.board[self.computer_choice[0]][self.computer_choice[1]] = "O"
             self.display_board()
-            self.check_if_win()
+            if self.check_if_win():
+                self.game_is_finished = True
             
     
     def check_if_occupied(self):
@@ -51,35 +53,33 @@ class Board:
             return True
     
     
-    def check_if_win(self):
+    def check_if_win(self):    
+        straight_diag1 = (self.board[0][0], self.board[1][1], self.board[2][2])
+        straight_diag2 = (self.board[2][0], self.board[1][1], self.board[0][2])
+        straight_vert1 = (self.board[0][0], self.board[1][0], self.board[2][0])
+        straight_vert2 = (self.board[0][1], self.board[1][1], self.board[2][1])
+        straight_vert3 = (self.board[0][2], self.board[1][2], self.board[2][2])
+          
+        all_diag_o = all(i == 'O' for i in straight_diag1)  or  all(i == 'O' for i in straight_diag2)
+        all_diag_x = all(i == 'X' for i in straight_diag1)  or  all(i == 'X' for i in straight_diag2)
+        all_vert_o = all(i == 'O' for i in straight_vert1) or  all(i == 'O' for i in straight_vert2) or all(i == 'O' for i in straight_vert3)
+        all_vert_x = all(i == 'X' for i in straight_vert1) or  all(i == 'X' for i in straight_vert2) or all(i == 'X' for i in straight_vert3)
         # check if there are same values in a row
         for row in self.board:
             all_row_x = all(tile == 'X' for tile in row )
             all_row_o = all(tile == 'O' for tile in row )
-            
-            
-            straight_diag1 = (self.board[0][0], self.board[1][1], self.board[2][2])
-            straight_diag2 = (self.board[2][0], self.board[1][1], self.board[0][2])
-            all_diag_o = all(i == 'O' for i in straight_diag1)  or  all(i == 'O' for i in straight_diag2)
-            all_diag_x = all(i == 'X' for i in straight_diag1)  or  all(i == 'X' for i in straight_diag2)
 
-            if all_row_x or all_row_o or all_diag_o or all_diag_x:
-                if all_row_o or all_diag_o:
-                    print("The winner is O")
-                    self.game_is_finished = True
-                elif all_row_x or all_diag_x:
-                    print("The winner is X")
-                    self.game_is_finished = True
+            if all_row_x or all_row_o or all_diag_o or all_diag_x or all_vert_o or all_vert_x:
+                if all_row_o or all_diag_o or all_vert_o:
+                    print("\nThe winner is O")
+                    return True
+                elif all_row_x or all_diag_x or all_vert_x:
+                    print("\nThe winner is X")
+                    return True
                 
-        
 
-# columns = 3
-# tile = ['-']
-# column_numbers = [f"{i+1}" for i in range(columns)]
-# board = [tile * 3 for i in range(columns)]
 
 board = Board()
-
 
 while not board.game_is_finished:
     board.player_turn()
