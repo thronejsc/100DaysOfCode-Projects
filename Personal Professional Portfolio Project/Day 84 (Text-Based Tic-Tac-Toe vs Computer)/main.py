@@ -78,14 +78,13 @@ class Board:
                     return True
                 
 
-
-board = Board()
-
-while not board.game_is_finished:
-    board.player_turn()
-    board.computer_turn()
+def main():
+    board = Board()
+    while not board.game_is_finished:
+        board.player_turn()
+        board.computer_turn()
     
     
-    
+main()   
     
     
