@@ -75,7 +75,7 @@ class WatermarkApp:
             draw.text((x, y), text, font=font, fill=(255, 255, 255, 128))
 
             # Save the watermarked image
-            watermarked_image.save("./images/watermarked_image.jpg")
+            watermarked_image.save("watermarked_image.jpg")
 
             tk.messagebox.showinfo("Success", "Image Watermarked and saved as watermarked_image.jpg")
 
