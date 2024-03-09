@@ -4,10 +4,10 @@ import time
 
 
 # ---------- COLOR PALETE ----------- #
-BG = "#EADFB4" #rgb(234, 223, 180)
-FG = "#9BB0C1" #rgb(155, 176, 193)
-FG2 = "#51829B" #rgb(81, 130, 155)
-FG3 = "#F6995C" #rgb(246, 153, 92)
+BG = "#DDDDDD" #rgb(234, 223, 180)
+FG = "#222831" #rgb(155, 176, 193)
+FG2 = "#30475E" #rgb(81, 130, 155)
+FG3 = "#F05454" #rgb(246, 153, 92)
 
 
 
@@ -17,6 +17,7 @@ class TypingSpeedTest:
         self.window = Tk()
         self.window.title("Typing Speed Test")
         self.window.geometry("800x800")
+        self.window.configure(bg=BG)
         self.start_time = None
         self.sentence = self.generate_sentence()
         self.set_ui()
@@ -27,17 +28,17 @@ class TypingSpeedTest:
             
         
     def set_ui(self):
-        self.subtitle_label = Label(self.window, text="How fast can you TYPE?", font=("Helvetica", 36))
+        self.subtitle_label = Label(self.window, text="How fast can you TYPE?", font=("Helvetica", 36), fg=FG, bg=BG, highlightthickness=0)
         self.subtitle_label.pack(pady=20)
         
-        self.sentence_label = Label(self.window, text=self.sentence, font=("Helvetica", 18), wraplength=700)
+        self.sentence_label = Label(self.window, text=self.sentence, font=("Helvetica", 18), wraplength=700, fg=FG, bg=BG, highlightthickness=0)
         self.sentence_label.pack()
 
         self.input_text = Text(self.window, font=("Helvetica", 16), wrap=WORD, width=60, height=10)
-        self.input_text.pack(pady=50)
+        self.input_text.pack(pady=40)
         self.input_text.bind('<Key>', func=self.check_typing)
 
-        self.result_label = Label(self.window, text="", font=("Helvetica", 14))
+        self.result_label = Label(self.window, text="", font=("Helvetica", 14), fg=FG, bg=BG, highlightthickness=0)
         self.result_label.pack()
 
     def check_typing(self, event):
@@ -51,10 +52,10 @@ class TypingSpeedTest:
             if i < len(self.correct_words):
                 if self.user_words[i] == self.correct_words[i]:
                     self.input_text.tag_add("correct", f"1.{len(' '.join(self.correct_words[:i]))}", f"1.{len(' '.join(self.correct_words[:i+1]))}")
-                    self.input_text.tag_config("correct", foreground="green")
+                    self.input_text.tag_config("correct", foreground=FG2)
                 else:
                     self.input_text.tag_add("incorrect", f"1.{len(' '.join(self.correct_words[:i]))}", f"1.{len(' '.join(self.correct_words[:i+1]))}")
-                    self.input_text.tag_config("incorrect", foreground="red")
+                    self.input_text.tag_config("incorrect", foreground=FG3)
                     break
             else:
                 self.result_label.config(text="Typing test done")
@@ -68,7 +69,7 @@ class TypingSpeedTest:
     
     def generate_sentence(self):
         try: 
-            with open('paragraphs.txt', 'r') as file:
+            with open('./paragraphs.txt', 'r') as file:
                 paragraphs = file.read()
             paragraph_list = paragraphs.split('\n')
         except FileNotFoundError:
