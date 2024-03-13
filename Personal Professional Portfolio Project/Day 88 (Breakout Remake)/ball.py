@@ -6,7 +6,7 @@ class Ball(Turtle):
         super().__init__()
         self.shape("circle")
         self.color("white")
-        self.shapesize(stretch_wid=1, stretch_len=1)
+        self.shapesize(stretch_wid=0.8, stretch_len=0.8)
         self.ball_speed = 0.1
         self.penup()
         self.setpos(x=-250, y=-40)
